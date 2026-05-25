@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MedAtlas.API/MedAtlas.API.csproj" />
+    <Project Path="src/MedAtlas.Application/MedAtlas.Application.csproj" />
+    <Project Path="src/MedAtlas.Domain/MedAtlas.Domain.csproj" />
+    <Project Path="src/MedAtlas.Infrastructure/MedAtlas.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/testes/">
+    <Project Path="testes/MedAtlas.TestesIntegracao/MedAtlas.TestesIntegracao.csproj" />
+    <Project Path="testes/MedAtlas.TestesUnitarios/MedAtlas.TestesUnitarios.csproj" />
+  </Folder>
+</Solution>

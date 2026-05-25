@@ -1,0 +1,67 @@
+name: medatlas
+
+services:
+  medatlas-db:
+    image: postgres:16-alpine
+    container_name: medatlas-postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USUARIO}
+      - POSTGRES_PASSWORD=${POSTGRES_SENHA}
+      - POSTGRES_DB=${POSTGRES_BANCO}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_dados:/var/lib/postgresql/data
+    networks:
+      - medatlas-network
+    restart: unless-stopped
+
+  medatlas-cache:
+    image: redis:7.2-alpine
+    container_name: medatlas-redis
+    command: redis-server --requirepass ${REDIS_SENHA}
+    ports:
+      - "6379:6379"
+    networks:
+      - medatlas-network
+    restart: unless-stopped
+
+  medatlas-storage:
+    image: minio/minio:latest
+    container_name: medatlas-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_USUARIO}
+      - MINIO_ROOT_PASSWORD=${MINIO_SENHA}
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_dados:/data
+    networks:
+      - medatlas-network
+    restart: unless-stopped
+
+  medatlas-mq:
+    image: rabbitmq:3.12-management-alpine
+    container_name: medatlas-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USUARIO}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_SENHA}
+    volumes:
+      - rabbitmq_dados:/var/lib/rabbitmq
+    networks:
+      - medatlas-network
+    restart: unless-stopped
+
+networks:
+  medatlas-network:
+    driver: bridge
+
+volumes:
+  postgres_dados:
+  minio_dados:
+  rabbitmq_dados:

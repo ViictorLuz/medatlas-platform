@@ -1,0 +1,6 @@
+@MedAtlas.API_HostAddress = http://localhost:5210
+
+GET {{MedAtlas.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

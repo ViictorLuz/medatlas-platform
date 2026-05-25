@@ -1,0 +1,13 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "Postgres": "Host=localhost;Port=5432;Database=medatlas_db;Username=seu_usuario;Password=sua_senha",
+    "Redis": "localhost:6379,password=sua_senha"
+  }
+}
